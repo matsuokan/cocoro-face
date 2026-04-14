@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git:*)",
+      "Bash(pytest:*)",
+      "Bash(npm:*)",
+      "Bash(uvicorn:*)",
+      "Bash(conda:*)",
+      "Bash(python:*)",
+      "Bash(curl:*)",
+      "Bash(systemctl status:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf /*)",
+      "Bash(sudo rm -rf:*)",
+      "Bash(systemctl stop:*)",
+      "Bash(systemctl disable:*)"
+    ]
+  }
+}
