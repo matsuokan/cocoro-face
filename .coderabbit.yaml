@@ -1,0 +1,60 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: "ja"
+early_access: false
+
+reviews:
+  profile: "assertive"
+  request_changes_workflow: true
+  high_level_summary: true
+  poem: false
+  review_status: true
+  auto_review:
+    enabled: true
+    drafts: false
+
+  # パス別レビュー指示
+  path_instructions:
+    - path: "backend/services/facefusion_service.py"
+      instructions: |
+        このファイルはFaceFusionへの唯一の呼び出し口です。
+        - subprocessの呼び出しにタイムアウトが設定されているか確認する
+        - エラーハンドリングが適切か（握りつぶしていないか）確認する
+        - FaceFusion本体のコードを直接importしていないか確認する
+
+    - path: "backend/routers/**"
+      instructions: |
+        - すべての例外がHTTPExceptionに変換されているか確認する
+        - 入力バリデーションが適切か確認する
+        - 認証・認可の考慮が必要なエンドポイントでチェックが抜けていないか確認する
+
+    - path: "backend/**/*.py"
+      instructions: |
+        - 型アノテーションが付いているか確認する
+        - .envから読むべき値がハードコードされていないか確認する
+        - 応急処置的なコード（TODO, FIXME, 空のexcept）を指摘する
+
+    - path: "frontend/src/**/*.tsx"
+      instructions: |
+        - default exportが使われていないか確認する（named exportのみ許可）
+        - Tailwind以外のスタイリング（インラインstyle, 別CSSファイル）がないか確認する
+        - API呼び出しがsrc/api/client.ts経由になっているか確認する
+        - 型定義が適切か確認する
+
+    - path: "docs/**/*.md"
+      instructions: |
+        - ARCHITECTURE.mdの変更は新ファイル追加・削除と整合しているか確認する
+        - HANDOFF.mdの内容が実際の作業状態と一致しているか確認する
+
+  # レビュー対象外ファイル
+  path_filters:
+    - "!**/node_modules/**"
+    - "!**/__pycache__/**"
+    - "!**/*.pyc"
+    - "!**/dist/**"
+    - "!**/.venv/**"
+    - "!**/facefusion/**"      # FaceFusion本体はレビュー対象外
+    - "!**/models/**/*.onnx"   # ONNXモデルファイルはレビュー対象外
+    - "!**/outputs/**"         # 生成済みファイルはレビュー対象外
+
+chat:
+  auto_reply: true

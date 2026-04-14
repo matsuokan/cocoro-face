@@ -13,6 +13,7 @@
     "deny": [
       "Bash(rm -rf /*)",
       "Bash(sudo rm -rf:*)",
+      "Bash(git push origin main:*)",
       "Bash(systemctl stop:*)",
       "Bash(systemctl disable:*)"
     ]

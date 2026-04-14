@@ -23,6 +23,13 @@ cd backend && pytest
 cd frontend && npm run typecheck
 ```
 
+## Git Workflow（CodeRabbit連携）
+- mainへの直接pushは禁止
+- 作業は必ずfeature branchで行う: `git checkout -b feat/xxx`
+- PR作成後にCodeRabbitが自動レビューする
+- CodeRabbitの指摘はすべて対応してからマージする
+- `/pr` コマンドでPR本文のテンプレートを生成できる
+
 ## Absolute Rules
 1. 応急処置禁止・根本修正のみ。try/exceptでエラーを握りつぶさない
 2. FaceFusionコアは直接編集しない。services/facefusion_service.py経由のみ
